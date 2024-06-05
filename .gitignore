@@ -1,3 +1,4 @@
 facts/
 chroma_db/
-.env
+.env 
+__pycache__

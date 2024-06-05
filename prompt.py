@@ -22,9 +22,13 @@ retriever = db.as_retriever()
 chain = RetrievalQA.from_chain_type(
     llm=llm,
     retriever=retriever,
-    chain_type="stuff",
+    # chain_type="stuff"; Take some stuff from the vector store and "stuff" it into the prompt
+    # chain_type="map_reduce"; Build a summary or each document and then feed each summary into final question
+    # chain_type="map_rerank"; Find relevant part of each document and give it a score of how relevant it is
+    # chain_type="refine"; Build the initial response and then give LLM the opportunity to update it with further context
+    chain_type="refine",
 )
 
 result = chain.invoke("What is interesting fact about English language?")
 
-print(result)
+print(result['result'])
